@@ -14,15 +14,16 @@ y0 = utils.lim_tf(minreal(Ylim), Inf);
 % --- TVF para escalón: y(inf) = lim_{s->0} s*G(s)*(1/s) = G(0), si G estable ---
 yinf = utils.lim_tf(minreal(Ylim), 0);
 
+hasRHP = any(real(pole(G)) > 0);
 
 if ~any(strcmpi(varargin, 'silent'))
     fprintf('TVI: y(0+) = %.6g\n', y0);
-    if isstable(G)
-        fprintf('TVF: y(∞)  = %.6g\n', yinf);
-    else
+    if hasRHP %isstable(G)
         fprintf('TVF no aplicable: G(s) inestable. Polos: ( ');
         fprintf('%g ', pole(G));
         fprintf(')\n');
+    else
+        fprintf('TVF: y(∞)  = %.6g\n', yinf);
     end
 end
 end
