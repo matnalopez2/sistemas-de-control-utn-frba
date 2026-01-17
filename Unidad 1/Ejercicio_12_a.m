@@ -1,7 +1,12 @@
 %{
-Ejercicio 12a
-Respuesta al escalon del sistema:
-G(s) = (9 - 3s)/((s+1)(s+7))
+Materia: Sistemas de Control
+Carrera: Ingeniería Electrónica
+Universidad Tecnológica Nacional – FRBA
+
+Alumno: Matías Nahuel López
+
+Guía de TP#1: Modelización de sistemas físicos y su representación gráfica mediante bloques
+Ejercicio: 12 a
 %}
 
 clc;
