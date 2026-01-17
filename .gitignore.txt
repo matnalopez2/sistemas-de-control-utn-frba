@@ -1,0 +1,14 @@
+# MATLAB autosave / backup
+*.asv
+*.m~
+
+# MATLAB cache
+.slxc
+.mlintcache
+
+# Simulink autosave
+*.autosave
+*.bak
+
+# Resultados locales
+*.mat
