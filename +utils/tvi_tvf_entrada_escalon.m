@@ -1,7 +1,11 @@
 function [y0, yinf] = tvi_tvf_entrada_escalon(G, varargin)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Uso:
 %   r = utils.tvi_tvf_entrada_escalon(G);          % imprime (default)
 %   r = utils.tvi_tvf_entrada_escalon(G,'silent'); % no imprime
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 s = tf('s');
 
 Y = G/s;
