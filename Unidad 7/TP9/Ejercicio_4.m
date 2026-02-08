@@ -19,10 +19,12 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-A = [1 1; 0 -1]
-B = [1 0]'
-
+A = [0 1 0; 0 0 1; -6 -11 -6]
+B = [0 0 1]'
+C = [4 5 1]
+D = [0 0 0]'
 
 %% Resolución
 
-esCtrb = utils.realim_VE.esControlable(A,B)
+esCtrb = utils.realim_VE.esControlable(A, B);
+esObsv = utils.realim_VE.esObservable(A, C);

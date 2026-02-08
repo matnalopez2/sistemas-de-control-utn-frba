@@ -1,12 +1,16 @@
-% 
-% Fórmula para calcular si es controlable, analizado por método de Kalman
-% 
-%   Se considera controlable cuando el rango de la matriz controlabilidad
-%   es igual al rango de la matriz A
-% 
+%
+% Test de Kalman: Controlabilidad
+%
+% Un sistema (A,B) es completamente controlable si el rango de la matriz de
+% controlabilidad es igual al orden del sistema n (n = size(A,1)):
+%
+%   Ctrb = [ B  A*B  A^2*B  ...  A^(n-1)*B ]
+%   Es controlable  <=>  rank(Ctrb) = n
+%
 % Devuelve:
-%   - true: si es controlable
+%   - true:  si es controlable
 %   - false: si no es controlable
+%
 
 function esCtrb = esControlable(A, B)
 % esControlable  Devuelve true si (A,B) es controlable (Kalman), false si no.
@@ -23,10 +27,10 @@ function esCtrb = esControlable(A, B)
     C = ctrb(A, B);
 
     if( rank(C) == n)
-        disp('Es controlable\n');
+        disp('Es controlable');
         esCtrb = true;
     else 
-        disp('No es controlable\n');
+        disp('No es controlable');
         esCtrb = false;
     end
 end

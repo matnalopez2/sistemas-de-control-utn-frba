@@ -1,6 +1,6 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
-% Ejercicio 4 - Guía de TP 9
+% Ejercicio 3 - Guía de TP 9
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -19,6 +19,10 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
+A = [1 1; 0 -1]
+B = [1 0]'
 
 
 %% Resolución
+
+esCtrb = utils.realim_VE.esControlable(A,B)
