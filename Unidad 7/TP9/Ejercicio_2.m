@@ -19,12 +19,15 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = tf([23.45 7.18], [1 6.25 28.32 7.18])
+A = [0, 1; -27, -5];
+B = [1, 1; 0, 1];
+C = [1, 0; 0, 1];
+D = [0, 0; 0, 0];
 
 
 %% Resolución
 
-[numG,denG] = tfdata(G, 'v');
-
-[A, B, C, D] = tf2ss(numG, denG)
+syms s;
+Y = C*inv(s*eye(2)-A)*B+D;
+simplify(Y)
 
