@@ -150,17 +150,28 @@ grid on;
 %5) Una red de adelanto con transferencia D(s)=k*(s+zc)/(s+pc) es tal que 
 %|zc|>|pc|
 
-%1) Falso, un sistema con realimentación unitaria negativa no garantiza un 
-%error nulo y absoluto ante una entrada de delta de Dirac, el error en 
-%estado estacionario dependerá del tipo de sistema de control y de las 
-%características de su función de transferencia en lazo abierto, y no solo 
-%de la realimentación unitaria negativa. 
-%2) Falso, disminuye la velocidad, pero aumenta la cupla.
-%3) Falso, eso se modeliza con dos capacitores, luego a traves del
-%transformador se refleja y se reemplaza por un equivalente reflejado al
-%primario o secundario, es decir, una sola variable de estado.
+% 1) FALSO
+% Un sistema con realimentación unitaria negativa no garantiza un 
+% error nulo y absoluto ante una entrada de delta de Dirac, el error en 
+% estado estacionario dependerá del tipo de sistema de control y de las 
+% características de su función de transferencia en lazo abierto, y no solo 
+% de la realimentación unitaria negativa. 
+
+
+%2) FALSO
+%   Disminuye la velocidad, pero aumenta la cupla.
+
+%3) FALSO
+% Eso se modeliza con dos capacitores, luego a traves del
+% transformador se refleja y se reemplaza por un equivalente reflejado al
+% primario o secundario, es decir, una sola variable de estado.
+
+
 %4) Verdadero, un controlador PID clásico, al ser realimentado 
 %unitariamente, logra un error nulo en régimen permanente (estado 
 %estacionario) para una entrada de escalón unitario debido a la acción 
 %integral
+
+
+
 %5) Falso, eso es para una red de atraso.
