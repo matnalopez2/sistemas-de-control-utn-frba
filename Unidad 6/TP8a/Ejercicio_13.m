@@ -1,8 +1,13 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 % Ejercicio 13 - Guía de TP 8a
+% Realizado por: Matías Nahuel López
+% 
+% Universidad Tecnológica Nacional
+% Facultad Regional de Buenos Aires
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %% Inicialización
 
@@ -26,14 +31,15 @@ ts = 1;     % Tiempo de establecimiento < 1 segundo
 MG = 3;     % Margen de ganancia > 3dB
 
 polos = pole(G);
-
+figure; pzmap(G)
 
 %% Resolución
 
-% Defino PLC = -4 +- 4i para asegurar cumplir Mp y ts
+% chi = utilsMati.disenio_compensadores.factor_amort_desde_sobrepico(Mp)
+% Reemplazo mi función por lo que realiza internamente por simplicidad para
+% compartir el archivo al campus virtual
 
-% chi = utils.disenio_compensadores.factor_amort_desde_sobrepico(Mp)
-chi = utils.disenio_compensadores.factor_amort_desde_sobrepico(4.32)
+chi = 1 / sqrt(1 + ((pi/(log(Mp/100)))^2));
 
 % ts = 4 / (wn*chi)
 wn = 4 / (chi*ts)
@@ -41,15 +47,13 @@ wn = 4 / (chi*ts)
 w0 = wn * sqrt(1-chi^2)
 
 % chi = cos alfa -> alfa = arc cos chi
+% uso acosd que es el arco coseno en deg
 alfa = acosd(chi)
 
 % tan alfa = opuesto / adyacente
 a = w0 / tand(alfa)
 
 PLC = - a + w0*i
-
-
-
 
 fprintf("Calculo el angulo para el primer polo en %d", polos(1))
 delta = angle(PLC - polos(1))*180/pi
@@ -60,18 +64,6 @@ beta = angle(PLC - polos(3))*180/pi
 fprintf("Calculo el angulo para el tercer polo en %d", polos(2))
 gamma = angle(PLC - polos(2))*180/pi
 
-
+fprintf("Calculo el Margen de Fase que debe ser igual a +-180°, para luego compensarlo");
 MF = delta + beta + gamma
-
-MF2 = (MF + delta - 180)
-% epsilon = (MF - 180)
-% z = imag(PLC)/tand(epsilon) - real(PLC)
-
-
-
-Gc = 1
-
-rlocus(G*Gc)
-
-% margin(G*Gc)
 

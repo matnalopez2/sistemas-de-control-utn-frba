@@ -53,6 +53,7 @@ grid;
 F4=figure(4);
 KD=180;
 M=feedback(KD*GH,1);
+figure(7);pzmap(M)
 step(M); 
 stepinfo(M)
 grid;
