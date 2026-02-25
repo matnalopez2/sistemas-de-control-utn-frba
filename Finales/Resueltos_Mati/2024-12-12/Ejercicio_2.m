@@ -26,26 +26,30 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+syms s m1 k1 m2 k2 b
 
+numG1 = [0 0 k1];
+denG1 = [m1 0 k1];
+
+G1 = tf(numG1, denG1)
 
 %% Resolución
 
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
 
-z1 = -10;
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
 
-sum_polos = alfa * 3 + beta
 
-gamma = angle(PLC - z1)*180/pi
 
-tita = sum_polos - 180 - gamma
+
+
+
+
+
+
+
+
+
+
+
+

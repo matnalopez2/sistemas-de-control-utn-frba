@@ -26,26 +26,44 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+syms M m g l s
 
 
 %% Resolución
 
+A = [0 1 0 0; 0 0 -m*g/M 0; 0 0 0 1; 0 0 g*(M+m)/(l*M) 0];
+B = [0; 1/M ; 0; -1/(l*M)];
+C = [1 0 0 0; 0 0 1 0];
+D = [0;0];
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
 
-z1 = -10;
+eig(A)
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
 
-sum_polos = alfa * 3 + beta
 
-gamma = angle(PLC - z1)*180/pi
+% A,B,C,D ya definidos como sym
 
-tita = sum_polos - 180 - gamma
+n = size(A,1);
+
+G = simplify( C * ((s*eye(n) - A)\B) + D );   % evita inv(), usa \
+
+G1 = simplify(G(1))   % theta/u
+G2 = simplify(G(2))   % x/u
+
+% opcional: numerador/denominador simbólicos
+[num1, den1] = numden(G1);
+[num2, den2] = numden(G2);
+
+G1, G2
+
+
+
+
+
+
+
+
+
+
+
+

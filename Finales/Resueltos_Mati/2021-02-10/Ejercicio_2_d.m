@@ -26,26 +26,34 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+H = 1;
 
+numG = [0 0 2];
+denG = [1 4 2]; %(s*s + 4*s + 2);
+
+G = tf(numG,denG);
+
+
+% Del Mason:
+
+G_1 = 1/s;
 
 %% Resolución
 
+[A,B,C,D] = utilsMati.generales.tf2ss_mati(numG, denG);
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
+% A = [0 1; -2 -4]
+% B = [ 0; 1]
+% C = [2 0]
+% D = [0]
 
-z1 = -10;
+PLC = [-4+4i -4-4i];
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
+K = acker(A,B,PLC)
 
-sum_polos = alfa * 3 + beta
 
-gamma = angle(PLC - z1)*180/pi
 
-tita = sum_polos - 180 - gamma
+An = A - B*K;
+PLC_dis = eig(An)
+
+g0 = utilsMati.realim_VE.factorEscala(A,B,C,K)

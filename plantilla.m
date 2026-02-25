@@ -28,5 +28,24 @@ t           = (T_inicio:delta_t:T_final)';
 
 
 
+
 %% Resolución
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -26,26 +26,32 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+num_G1 = 10;
+den_G1 = s*(s+1)*(s+10);
+
+G1 = num_G1 / den_G1;
+
+[numG1, denG1] = tfdata(G1, 'v')
 
 
 %% Resolución
 
+% Pruebo kt=5.98 
+% k = 5.98
+% k = 1 + kt
+% No me sirve, queda p3=-1,2 siendo dominante
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
+% Pruebo k=2.23
+k = 2.23
+kt = k - 1
+% Si me sirve! Vamos con este
 
-z1 = -10;
+M1 = feedback(G1, kt*s);
+[numM1, denM1] = tfdata(M1, 'v')
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
 
-sum_polos = alfa * 3 + beta
+M = feedback(k*M1, 1);
+pzmap(M)
 
-gamma = angle(PLC - z1)*180/pi
 
-tita = sum_polos - 180 - gamma
+

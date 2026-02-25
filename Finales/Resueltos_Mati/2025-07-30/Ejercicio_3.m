@@ -26,26 +26,38 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+M = 2;
+m = 0.5;
+l = 0.5;
+g = 9.81;
 
 
 %% Resolución
 
+A = [0 1 0 0; 0 0 -m*g/M 0; 0 0 0 1; 0 0 g*(M+m)/(l*M) 0]
+B = [0; 1/M ; 0; -1/(l*M)]
+C = [1 0 0 0; 0 0 1 0]
+D = [0;0]
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
+eig(A)
 
-z1 = -10;
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
 
-sum_polos = alfa * 3 + beta
+utilsMati.realim_VE.esControlable(A,B);
+utilsMati.realim_VE.esObservable(A,C);
 
-gamma = angle(PLC - z1)*180/pi
 
-tita = sum_polos - 180 - gamma
+PLC = [-1+1i -1-1i -5 -5]
+
+K = acker(A,B,PLC)
+
+An = A - B*K
+eig(An)
+
+g0 = utilsMati.realim_VE.factorEscala(A,B,C,K)
+
+
+
+
+
+

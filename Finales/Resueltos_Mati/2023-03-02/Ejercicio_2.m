@@ -26,26 +26,38 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+H = 1 / (0.25*s +1);
+
+Gc1 = (+0.5*s - 1) / s;
+Gc2 = (-0.5*s + 1) / s;
 
 
 %% Resolución
 
+K = 2;
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
+L_a = K*Gc1*H;
+L_b = K*Gc2*H;
 
-z1 = -10;
+% figure; nyquist(L_a); grid on; title('Nyquist L(jw) - inciso (a)');
+% hold on; plot(-1,0,'rx','MarkerSize',10,'LineWidth',2); % punto -1
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
+figure; nyquist(L_b); grid on; title('Nyquist L(jw) - inciso (b)');
+hold on; plot(-1,0,'rx','MarkerSize',10,'LineWidth',2);
 
-sum_polos = alfa * 3 + beta
 
-gamma = angle(PLC - z1)*180/pi
 
-tita = sum_polos - 180 - gamma
+
+
+
+
+
+
+
+
+
+
+
+
+
+

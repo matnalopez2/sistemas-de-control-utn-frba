@@ -26,26 +26,43 @@ t           = (T_inicio:delta_t:T_final)';
 
 %% Datos del problema
 
-G = 6 / (s+1)^3;
-PLC = -4 + 4i;
+H = 1;
 
+numG = 2;
+denG = (s*s + 4*s + 2);
+
+G = numG/denG
+polos = pole(G)
 
 %% Resolución
 
+PLC = -4 + 4i;
 
-polos = pole(G);
-p1 = polos(1);
-p2 = polos(2);
-p3 = polos(3);
-p4 = 0;
+gamma = angle(PLC - polos(1))*180/pi
+delta = angle(PLC - polos(2))*180/pi
+beta  = angle(PLC - 0)*180/pi
 
-z1 = -10;
+MF = gamma + delta + beta
 
-alfa = angle(PLC - p1)*180/pi
-beta = angle(PLC - p4)*180/pi
+tita = MF - 180
+alfa = tita/2
 
-sum_polos = alfa * 3 + beta
+a = 4 / tand(alfa)
 
-gamma = angle(PLC - z1)*180/pi
+z = 4 + a
 
-tita = sum_polos - 180 - gamma
+% Gc = ((s + z)^2) / s;
+% Gc = (s+7.5)/s;
+Gc = (s+4.35)*(s+3.41)/s;
+
+rlocus(Gc*G)
+[k, polos] = rlocfind(Gc*G, PLC)
+
+kD = k
+kI = (4.35*3.41)*kD
+kP = (4.35+3.41)*kD
+
+Gc2 = kP + kD*s + kI/s;
+
+M = feedback(Gc2*G, H)
+pole(M)
